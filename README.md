@@ -18,12 +18,13 @@ Esta realizada con: Angular
    ```
    npm install
    ```
-5. Tener corriendo la aplicación de Node.js
+5. Tener corriendo la API del Backend
 
 6. Ejecutar comando para ejecutar el proyecto:
    ```
    npm start
    ```
+7. Por defecto la url de la API es http://localhost:3000, si desea configurar una url diferente puede modificar el archivo enviroment.ts
 
    
 

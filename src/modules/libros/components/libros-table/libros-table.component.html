@@ -1,0 +1,40 @@
+<form>
+    <div class="form-group form-inline">Búsqueda por texto: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="libroService.searchTerm" /><span class="ml-3" *ngIf="libroService.loading$ | async">Cargando...</span></div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Código Libro</th>
+                <th scope="col" sbSortable="titulo" (sort)="onSort($event)"><span>titulo</span><sb-sort-icon *ngIf='sortedColumn === "titulo"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="autor" (sort)="onSort($event)"><span>autor</span><sb-sort-icon *ngIf='sortedColumn === "autor"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="anio" (sort)="onSort($event)"><span>año</span><sb-sort-icon *ngIf='sortedColumn === "anio"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="editorial" (sort)="onSort($event)"><span>editorial</span><sb-sort-icon *ngIf='sortedColumn === "editorial"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="categoria" (sort)="onSort($event)"><span>categoria</span><sb-sort-icon *ngIf='sortedColumn === "categoria"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="idioma" (sort)="onSort($event)"><span>idioma</span><sb-sort-icon *ngIf='sortedColumn === "idioma"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="ubicacion" (sort)="onSort($event)"><span>ubicacion</span><sb-sort-icon *ngIf='sortedColumn === "ubicacion"' [direction]="sortedDirection"></sb-sort-icon></th>
+                <th scope="col" sbSortable="disponible" (sort)="onSort($event)"><span>disponible</span><sb-sort-icon *ngIf='sortedColumn === "disponible"' [direction]="sortedDirection"></sb-sort-icon></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let libro of libros$ | async">
+                <th scope="row">{{ libro._id }}</th>
+                <td><ngb-highlight [result]="libro.titulo" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.autor" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.anio" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.editorial" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.categoria" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.idioma" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.ubicacion" [term]="libroService.searchTerm"></ngb-highlight></td>
+                <td><ngb-highlight [result]="libro.disponible" [term]="libroService.searchTerm"></ngb-highlight></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="total$ | async" [(page)]="libroService.page" [pageSize]="libroService.pageSize"></ngb-pagination>
+        <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="libroService.pageSize">
+            <option [ngValue]="2">2 items per page</option>
+            <option [ngValue]="4">4 items per page</option>
+            <option [ngValue]="6">6 items per page</option>
+            <option [ngValue]="10">10 items per page</option>
+        </select>
+    </div>
+</form>
